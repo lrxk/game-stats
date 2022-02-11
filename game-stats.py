@@ -1,8 +1,7 @@
 import argparse
 import json
-from turtle import TPen
-
-from click import argument
+import os
+import random
 class ArgumentException(Exception):
     def __init__(self,message) -> None:
         self.message=message
@@ -10,16 +9,37 @@ class ArgumentException(Exception):
 class GameStats:
     PLAYERS="players"
     MAP_NAME="map_name"
-    def __init__(self) -> None:
-        args=self.argument()
-        if args.map=='':
-            raise ArgumentException("Map name required")
-        if args.players=='':
-            raise ArgumentException('Players and their positions needed')
-        pass
-    def argument(self):
+    def __init__(self):
         parser=argparse.ArgumentParser()
         parser.add_argument('-p','--players',help='Enter players and their positions',type=str,metavar='')
         parser.add_argument('-m','--map',help='Enter the map',type=str,metavar='')
         args=parser.parse_args()
-        return args
+        if args.map=='':
+            raise ArgumentException("Map name required")
+        if args.players=='':
+            raise ArgumentException('Players and their positions needed')
+        self.data=json.loads(args.players)
+    
+    def dataToJSON(self):
+
+        with open('result.json','r+') as file:
+            jsonList=[]
+            entry={}
+            entry['id']=random.randint(1,100)
+            entry['players']=self.data
+            #empty file
+            if os.path.getsize("result.json")==0:
+                jsonList=[entry]
+                json.dump(jsonList,file, separators=(',', ':'))
+                
+            else:
+                
+                jsonList=json.load(file)
+                jsonList.append(entry)
+                file.seek(0)
+                file.truncate()
+                json.dump(jsonList,file)            
+                
+if __name__=="__main__":
+    gs=GameStats()
+    gs.dataToJSON()
