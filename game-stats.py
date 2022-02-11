@@ -1,7 +1,7 @@
 import argparse
 import json
 import os
-import random
+from datetime import datetime
 class ArgumentException(Exception):
     def __init__(self,message) -> None:
         self.message=message
@@ -21,11 +21,12 @@ class GameStats:
         self.data=json.loads(args.players)
     
     def dataToJSON(self):
-
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         with open('result.json','r+') as file:
             jsonList=[]
             entry={}
-            entry['id']=random.randint(1,100)
+            entry['id']=dt_string
             entry['players']=self.data
             #empty file
             if os.path.getsize("result.json")==0:
@@ -33,7 +34,6 @@ class GameStats:
                 json.dump(jsonList,file, separators=(',', ':'))
                 
             else:
-                
                 jsonList=json.load(file)
                 jsonList.append(entry)
                 file.seek(0)
