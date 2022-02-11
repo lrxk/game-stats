@@ -13,7 +13,9 @@ class GameStats:
     def __init__(self) -> None:
         args=self.argument()
         if args.map=='':
-            
+            raise ArgumentException("Map name required")
+        if args.players=='':
+            raise ArgumentException('Players and their positions needed')
         pass
     def argument(self):
         parser=argparse.ArgumentParser()
