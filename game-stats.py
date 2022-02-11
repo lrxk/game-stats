@@ -3,11 +3,17 @@ import json
 from turtle import TPen
 
 from click import argument
+class ArgumentException(Exception):
+    def __init__(self,message) -> None:
+        self.message=message
+        
 class GameStats:
     PLAYERS="players"
     MAP_NAME="map_name"
     def __init__(self) -> None:
         args=self.argument()
+        if args.map=='':
+            
         pass
     def argument(self):
         parser=argparse.ArgumentParser()
