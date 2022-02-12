@@ -23,5 +23,32 @@ class GameStatsByCup:
         self.players=args.players
         self.cc=args.cc
         self.difficulty=args.difficulty
-
+    def dataToJson(self):
+        filename='result-by-cup.json'
+        data=json.loads(self.players)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        first=self.get_key(1)
+        second=self.get_key(2)
+        third=self.get_key(3)
+        podium={"first":first,"second":second,"third":third}
+        with open(filename,'r+') as file:
+            jsonList=[]
+            entry={}
+            entry[self.ID]=dt_string
+            entry[self.PLAYERS]=self.data
+            entry[self.MAP_NAME]=self.map_name
+            entry[self.PODIUM]=podium
+            #empty file
+            if os.path.getsize(filename)==0:
+                jsonList=[entry]
+                json.dump(jsonList,file, separators=(',', ':'))
+                
+            else:
+                jsonList=json.load(file)
+                jsonList.append(entry)
+                file.seek(0)
+                file.truncate()
+                json.dump(jsonList,file)     
+        pass
     
