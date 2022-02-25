@@ -21,7 +21,7 @@ class GameStatsByCup:
         parser.add_argument(
             '-p', '--players', help='Enter the players and their scores', type=str, metavar='')
         parser.add_argument(
-            '-c', '--cc', help='Enter the CC', type=int, metavar=0)
+            '-c', '--cc', help='Enter the CC', type=int, metavar='')
         parser.add_argument(
             '-d', '--difficulty', help='Enter the AI difficulty', type=str, metavar='')
         args = parser.parse_args()
