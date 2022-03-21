@@ -14,26 +14,26 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        GLineEdit_100=tk.Entry(root)
-        GLineEdit_100["borderwidth"] = "1px"
+        nb_Players_Entry=tk.Entry(root)
+        nb_Players_Entry["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
-        GLineEdit_100["font"] = ft
-        GLineEdit_100["fg"] = "#333333"
-        GLineEdit_100["justify"] = "center"
-        GLineEdit_100["text"] = "Nb_Players"
-        GLineEdit_100.place(x=150,y=70,width=70,height=25)
+        nb_Players_Entry["font"] = ft
+        nb_Players_Entry["fg"] = "#333333"
+        nb_Players_Entry["justify"] = "center"
+        nb_Players_Entry["text"] = "Nb_Players"
+        nb_Players_Entry.place(x=150,y=70,width=70,height=25)
 
-        GButton_135=tk.Button(root)
-        GButton_135["bg"] = "#efefef"
+        validator_1=tk.Button(root)
+        validator_1["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_135["font"] = ft
-        GButton_135["fg"] = "#000000"
-        GButton_135["justify"] = "center"
-        GButton_135["text"] = "Ok"
-        GButton_135.place(x=260,y=70,width=70,height=25)
-        GButton_135["command"] = self.GButton_135_command
+        validator_1["font"] = ft
+        validator_1["fg"] = "#000000"
+        validator_1["justify"] = "center"
+        validator_1["text"] = "Ok"
+        validator_1.place(x=260,y=70,width=70,height=25)
+        validator_1["command"] = self.validator_1_command
 
-    def GButton_135_command(self):
+    def validator_1_command(self):
         print("command")
 
 if __name__ == "__main__":
