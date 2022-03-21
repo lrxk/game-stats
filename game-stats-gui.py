@@ -14,8 +14,8 @@ class App:
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
-
-        self.nb_Players_Entry=tk.Entry(root)
+        vcmd = (root.register(self.callback))
+        self.nb_Players_Entry=tk.Entry(root,validate='all',validatecommand=(vcmd,'%P'))
         self.nb_Players_Entry["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
         self.nb_Players_Entry["font"] = ft
@@ -34,8 +34,16 @@ class App:
         self.validator_1.place(x=260,y=70,width=70,height=25)
         self.validator_1["command"] = self.validator_1_command
 
+    def callback(self, P):
+        if str.isdigit(P) or P == "":
+            return True
+        else:
+            return False
     def validator_1_command(self):
-        pass
+        
+        count=self.nb_Players_Entry.get()
+    
+
 
 if __name__ == "__main__":
     root = tk.Tk()
