@@ -33,15 +33,19 @@ class App:
         self.validator_1["text"] = "Ok"
         self.validator_1.place(x=260,y=70,width=70,height=25)
         self.validator_1["command"] = self.validator_1_command
-
+        self.players_entries=[]
     def callback(self, P):
         if str.isdigit(P) or P == "":
             return True
         else:
             return False
     def validator_1_command(self):
-        
-        count=self.nb_Players_Entry.get()
+        count=int(self.nb_Players_Entry.get())
+        if count>self.MAX_ENTRIES:
+            raise Exception("Can only be "+str(self.MAX_ENTRIES)+" entries")
+        for i in range(count):
+            self.players_entries.append(tk.Entry(root))
+            
     
 
 
