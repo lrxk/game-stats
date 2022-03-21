@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 
 class App:
+    MAX_ENTRIES=8
     def __init__(self, root):
         #setting title
         root.title("undefined")
