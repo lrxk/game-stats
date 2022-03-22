@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 import os
 class App:
+    #TODO add a buttons that create entries to enter map names, get the map names with webscrapping  
     MAX_ENTRIES=8
     def __init__(self, root):
         #setting title
