@@ -24,6 +24,29 @@ class App:
         self.nb_Players_Entry["text"] = "Nb_Players"
         self.nb_Players_Entry.place(x=150,y=70,width=70,height=25)
 
+
+        self.player_label=tk.Label(root)
+        self.player_label["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        self.player_label["font"] = ft
+        self.player_label["fg"] = "#333333"
+        self.player_label["justify"] = "center"
+        self.player_label["text"] = "Player"
+        self.player_label.place(x=self.width/4,y=100,width=70,height=25)
+
+
+        self.score_label=tk.Label(root)
+        self.score_label["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        self.score_label["font"] = ft
+        self.score_label["fg"] = "#333333"
+        self.score_label["justify"] = "center"
+        self.score_label["text"] = "Score"
+        self.score_label.place(x=self.width/4+80,y=100,width=70,height=25)
+        
+        
+        
+        
         self.validator_1=tk.Button(root)
         self.validator_1["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=10)
@@ -42,17 +65,18 @@ class App:
         else:
             return False
     def reset(self):
-        for i in range(len(self.players_entries)):
+        for i in reversed(range(len(self.players_entries))):
             self.players_entries[i].destroy()
             self.score_entries[i].destroy()
 
 
     def validator_1_command(self):
-        self.reset()
         count=int(self.nb_Players_Entry.get())
-        yPlacement=110
+        yPlacement=130
         if count>self.MAX_ENTRIES:
             raise Exception("Can only be "+str(self.MAX_ENTRIES)+" entries")
+        if(len(self.players_entries)!=0 and len(self.score_entries)!=0):
+            self.reset()
         for i in range(count):
             self.players_entries.append(tk.Entry(root))
             self.score_entries.append(tk.Entry(root))
