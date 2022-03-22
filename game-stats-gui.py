@@ -14,8 +14,10 @@ class App:
         alignstr = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2, (screenheight - self.height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
-        vcmd = (root.register(self.callback))
-        self.nb_Players_Entry=tk.Entry(root,validate='all',validatecommand=(vcmd,'%P'))
+        self.vcmd = (root.register(self.callback))
+
+        #Nb Player entry
+        self.nb_Players_Entry=tk.Entry(root,validate='all',validatecommand=(self.vcmd,'%P'))
         self.nb_Players_Entry["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
         self.nb_Players_Entry["font"] = ft
@@ -24,7 +26,28 @@ class App:
         self.nb_Players_Entry["text"] = "Nb_Players"
         self.nb_Players_Entry.place(x=150,y=70,width=70,height=25)
 
+        #map label
+        self.map_label=tk.Label(root)
+        self.map_label["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        self.map_label["font"] = ft
+        self.map_label["fg"] = "#333333"
+        self.map_label["justify"] = "center"
+        self.map_label["text"] = "Map Name"
+        self.map_label.place(x=self.width/4,y=30,width=70,height=25)
 
+        # map entry
+        self.map_entry=tk.Entry(root)
+        self.map_entry["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        self.map_entry["font"] = ft
+        self.map_entry["fg"] = "#333333"
+        self.map_entry["justify"] = "center"
+        self.map_entry["text"] = "Map Name"
+        self.map_entry.place(x=self.width/4+80,y=30,width=70,height=25)
+
+
+        #Player label
         self.player_label=tk.Label(root)
         self.player_label["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
@@ -34,7 +57,7 @@ class App:
         self.player_label["text"] = "Player"
         self.player_label.place(x=self.width/4,y=100,width=70,height=25)
 
-
+        #score label
         self.score_label=tk.Label(root)
         self.score_label["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
@@ -44,6 +67,7 @@ class App:
         self.score_label["text"] = "Score"
         self.score_label.place(x=self.width/4+80,y=100,width=70,height=25)
         
+        #validator of the number of players
         self.validator_1=tk.Button(root)
         self.validator_1["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=10)
@@ -54,6 +78,7 @@ class App:
         self.validator_1.place(x=260,y=70,width=70,height=25)
         self.validator_1["command"] = self.validator_1_command
 
+        #send the data button
         self.send_button=tk.Button(root)
         self.send_button["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=10)
@@ -63,6 +88,8 @@ class App:
         self.send_button["text"] = "Send"
         self.send_button.place(x=360,y=70,width=70,height=25)
         self.send_button["command"] = self.send_button_command
+
+        #entries lists
         self.players_entries=[]
         self.score_entries=[]
 
@@ -91,7 +118,7 @@ class App:
         self.score_entries=[]
         for i in range(count):
             player_entry=tk.Entry(root)
-            score_entry=tk.Entry(root)
+            score_entry=tk.Entry(root,validate='all',validatecommand=(self.vcmd,'%P'))
             self.players_entries.append(player_entry)
             self.score_entries.append(score_entry)
             player_entry.pack()
