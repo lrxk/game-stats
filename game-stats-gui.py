@@ -63,7 +63,8 @@ class App:
         self.send_button["text"] = "Send"
         self.send_button.place(x=360,y=70,width=70,height=25)
         self.send_button["command"] = self.send_button_command
-
+        self.players_entries=[]
+        self.score_entries=[]
 
     def send_button_command(self):
         #TODO
@@ -77,28 +78,27 @@ class App:
         else:
             return False
     def validator_1_command(self):
-        players_entries=[]
-        score_entries=[]
+        
         count=int(self.nb_Players_Entry.get())
         yPlacement=130
         if count>self.MAX_ENTRIES:
             raise Exception("Can only be "+str(self.MAX_ENTRIES)+" entries")
-        
-        for i in (range(len(players_entries))):
-            print("toto")
-            players_entries[i].destroy()
-            score_entries[i].destroy()
-        
+        if len(self.players_entries)!=0:
+            for i in (range(len(self.players_entries))):
+                self.players_entries[i].destroy()
+                self.score_entries[i].destroy()
+        self.players_entries=[]
+        self.score_entries=[]
         for i in range(count):
             player_entry=tk.Entry(root)
             score_entry=tk.Entry(root)
-            players_entries.append(player_entry)
-            score_entries.append(score_entry)
+            self.players_entries.append(player_entry)
+            self.score_entries.append(score_entry)
             player_entry.pack()
             score_entry.pack()
         for i in range(count):
-            players_entries[i].place(x=self.width/4,y=yPlacement,width=70,height=25)
-            score_entries[i].place(x=self.width/4+80,y=yPlacement,width=70,height=25)
+            self.players_entries[i].place(x=self.width/4,y=yPlacement,width=70,height=25)
+            self.score_entries[i].place(x=self.width/4+80,y=yPlacement,width=70,height=25)
             yPlacement+=50
 if __name__ == "__main__":
     root = tk.Tk()
