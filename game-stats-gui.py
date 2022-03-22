@@ -56,9 +56,13 @@ class App:
         self.validator_1["text"] = "Ok"
         self.validator_1.place(x=260,y=70,width=70,height=25)
         self.validator_1["command"] = self.validator_1_command
+
+        
         self.players_entries=[]
         self.score_entries=[]
         
+
+
     def callback(self, P):
         if str.isdigit(P) or P == "":
             return True
