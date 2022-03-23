@@ -229,6 +229,7 @@ class GameStatsSystem:
          
         return self.get_key(max)
     def dataToJSON(self):
+        #TODO bug : the whole podium is occupied by the same person
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         #temporary variable to have the podium
