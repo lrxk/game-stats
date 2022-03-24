@@ -8,6 +8,8 @@ class App:
     #TODO add a buttons that create entries to enter map names, get the map names with webscrapping (DONE) 
     MAX_ENTRIES=8
     def __init__(self, root):
+        number_player_option=[i for i in range(1,12)]
+        number_map_option=[4,6,8,12,16,24,32,48]
         df=pd.read_csv("Mario_kart8deluxe_maps_with_dlcs_map.csv")
         self.map_options=df['Circuit_Name']
         #setting title
