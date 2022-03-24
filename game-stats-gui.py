@@ -5,7 +5,6 @@ from datetime import datetime
 import os
 import pandas as pd
 class App:
-    #TODO add a buttons that create entries to enter map names, get the map names with webscrapping (DONE) 
     MAX_ENTRIES=8
     def __init__(self, root):
         number_player_option=[str(i) for i in range(2,13)]
@@ -14,7 +13,7 @@ class App:
         df=pd.read_csv("Mario_kart8deluxe_maps_with_dlcs_map.csv")
         self.map_options=df['Circuit_Name']
         #setting title
-        root.title("undefined")
+        root.title("Game-Stats")
         #setting window size
         self.width=600
         self.height=500
