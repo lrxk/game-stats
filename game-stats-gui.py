@@ -8,7 +8,7 @@ class App:
     #TODO add a buttons that create entries to enter map names, get the map names with webscrapping (DONE) 
     MAX_ENTRIES=8
     def __init__(self, root):
-        df=pd.read_csv("Mario_kart8deluxe_maps.csv")
+        df=pd.read_csv("Mario_kart8deluxe_maps_with_dlcs_map.csv")
         self.map_options=df['Circuit_Name']
         #setting title
         root.title("undefined")
@@ -111,8 +111,6 @@ class App:
         self.map_name_option_menus=[]
         self.clicked_options=[]
     def send_button_command(self):
-        #TODO
-        pass
         players_name=[]
         players_score=[]
         map_names=[]
