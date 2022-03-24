@@ -8,8 +8,9 @@ class App:
     #TODO add a buttons that create entries to enter map names, get the map names with webscrapping (DONE) 
     MAX_ENTRIES=8
     def __init__(self, root):
-        number_player_option=[i for i in range(1,12)]
-        number_map_option=[4,6,8,12,16,24,32,48]
+        number_player_option=[str(i) for i in range(1,12)]
+        number_map_option=["4","6","8","12","16","24","32","48"]
+
         df=pd.read_csv("Mario_kart8deluxe_maps_with_dlcs_map.csv")
         self.map_options=df['Circuit_Name']
         #setting title
@@ -24,25 +25,20 @@ class App:
         root.resizable(width=False, height=False)
         self.vcmd = (root.register(self.callback))
 
-        #Nb Player entry
-        self.nb_Players_Entry=tk.Entry(root,validate='all',validatecommand=(self.vcmd,'%P'))
-        self.nb_Players_Entry["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        self.nb_Players_Entry["font"] = ft
-        self.nb_Players_Entry["fg"] = "#333333"
-        self.nb_Players_Entry["justify"] = "center"
-        self.nb_Players_Entry["text"] = "Nb_Players"
-        self.nb_Players_Entry.place(x=150,y=70,width=70,height=25)
+        #String var
+        self.nbPlayer_clicked=tk.StringVar()
+        self.nbPlayer_clicked.set(str(number_player_option[0]))
+        self.nbMap_clicked=tk.StringVar()
+        self.nbMap_clicked.set(number_map_option[0])
 
-        #Nb circuit entry
-        self.nb_Circuit_Entry=tk.Entry(root,validate='all',validatecommand=(self.vcmd,'%P'))
-        self.nb_Circuit_Entry["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        self.nb_Circuit_Entry["font"] = ft
-        self.nb_Circuit_Entry["fg"] = "#333333"
-        self.nb_Circuit_Entry["justify"] = "center"
-        self.nb_Circuit_Entry["text"] = "Nb_Circuit"
-        self.nb_Circuit_Entry.place(x=30,y=70,width=70,height=25)
+        #NB players option menu
+        self.nb_Players_option_menu=tk.OptionMenu(root,self.nbPlayer_clicked,*number_player_option)
+        self.nb_Players_option_menu.place(x=150,y=70,width=70,height=25)
+
+
+        #NB map option menu
+        self.nb_map_option_menu=tk.OptionMenu(root,self.nbMap_clicked,*number_map_option)
+        self.nb_map_option_menu.place(x=30,y=70,width=70,height=25)
 
         #map label
         self.map_label=tk.Label(root)
@@ -51,7 +47,7 @@ class App:
         self.map_label["font"] = ft
         self.map_label["fg"] = "#333333"
         self.map_label["justify"] = "center"
-        self.map_label["text"] = "Map Name"
+        self.map_label["text"] = "Number of Maps"
         self.map_label.place(x=30,y=40,width=70,height=25)
 
         # Nb player label
@@ -132,8 +128,8 @@ class App:
             return False
     def validator_1_command(self):
         
-        count=int(self.nb_Players_Entry.get())
-        count_map_number=int(self.nb_Circuit_Entry.get())
+        count=int(self.nbPlayer_clicked.get())
+        count_map_number=int(self.nbMap_clicked.get())
         yPlacement=130
         yPlacementForMap=130
         if count>self.MAX_ENTRIES:
