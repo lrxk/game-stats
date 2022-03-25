@@ -46,7 +46,7 @@ class App:
         self.map_label["fg"] = "#333333"
         self.map_label["justify"] = "center"
         self.map_label["text"] = "Number of Maps"
-        self.map_label.place(x=30,y=40,width=70,height=25)
+        self.map_label.place(x=30,y=40,width=90,height=25)
 
         # Nb player label
         self.nb_Player_label=tk.Label(root)
