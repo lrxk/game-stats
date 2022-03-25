@@ -20,7 +20,7 @@ class App:
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2, (screenheight - self.height) / 2)
         root.geometry(alignstr)
-        root.resizable(width=False, height=False)
+        root.resizable(True,True)
         self.vcmd = (root.register(self.callback))
 
         #String var
