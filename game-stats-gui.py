@@ -5,7 +5,6 @@ from datetime import datetime
 import os
 import pandas as pd
 class App:
-    MAX_ENTRIES=8
     def __init__(self, root):
         number_player_option=[str(i) for i in range(2,13)]
         number_map_option=["4","6","8","12","16","24","32","48"]
@@ -15,8 +14,8 @@ class App:
         #setting title
         root.title("Game-Stats")
         #setting window size
-        self.width=600
-        self.height=500
+        self.width=900
+        self.height=1000
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2, (screenheight - self.height) / 2)
@@ -131,8 +130,6 @@ class App:
         count_map_number=int(self.nbMap_clicked.get())
         yPlacement=130
         yPlacementForMap=130
-        if count>self.MAX_ENTRIES:
-            raise Exception("Can only be "+str(self.MAX_ENTRIES)+" entries")
         self.widget_destroyer()
         if len(self.map_name_option_menus)!=0:
             for i in range(len(self.map_name_option_menus)): 
@@ -219,7 +216,7 @@ class GameStatsSystem:
         max=0
         for key, value in self.data.items():
             if max <= value :
-                if max not in p:
+                if self.get_key(value) not in p:
                     max=value
          
         return self.get_key(max)
@@ -235,7 +232,7 @@ class GameStatsSystem:
         p.append(second)
         third=self.get_max_key(p)
         p.append(third)
-        
+        print(p)
         podium={"first":first,"second":second,"third":third}
         with open('result.json','r+') as file:
             jsonList=[]
