@@ -1,9 +1,11 @@
 import tkinter as tk
 import tkinter.font as tkFont
 import json
-from datetime import datetime
+from datetime import date, datetime
 import os
 import pandas as pd
+
+from databaseFiller import DatabaseFiller
 class App:
     def __init__(self, root):
         number_player_option=[str(i) for i in range(2,13)]
@@ -118,6 +120,8 @@ class App:
             players_score.append(int(self.score_entries[i].get()))
         gss=GameStatsSystem(map_name=map_names,players=players_name,scores=players_score)
         gss.dataToJSON()
+        dbf=DatabaseFiller()
+        dbf.insert_data(map_name=map_names,players=players_name,scores=players_score,date=date.today())
         
     def callback(self, P):
         if str.isdigit(P) or P == "":
