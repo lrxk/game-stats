@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 import json
 from datetime import date, datetime
+
 import os
 import pandas as pd
 
@@ -121,7 +122,9 @@ class App:
         gss=GameStatsSystem(map_name=map_names,players=players_name,scores=players_score)
         gss.dataToJSON()
         dbf=DatabaseFiller()
-        dbf.insert_data(map_name=map_names,players=players_name,scores=players_score,date=date.today())
+        now = datetime.now()
+        date = now.strftime("%d/%m/%Y %H:%M:%S")
+        dbf.insert_data(map_name=map_names,players=players_name,scores=players_score,date=date)
         
     def callback(self, P):
         if str.isdigit(P) or P == "":
