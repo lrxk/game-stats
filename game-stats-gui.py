@@ -9,6 +9,7 @@ import pandas as pd
 from databaseFiller import DatabaseFiller
 class App:
     def __init__(self, root):
+        """ Initialize the application. """
         number_player_option=[str(i) for i in range(2,13)]
         number_map_option=["4","6","8","12","16","24","32","48"]
 
@@ -126,13 +127,14 @@ class App:
         date = now.strftime("%d/%m/%Y %H:%M:%S")
         dbf.insert_data(map_name=map_names,players=players_name,scores=players_score,date=date)
         
-    def callback(self, P):
+    def callback(self, P)->bool:
+        """ Validate the input """
         if str.isdigit(P) or P == "":
             return True
         else:
             return False
     def validator_1_command(self):
-        
+        """ command for the validator button """
         count=int(self.nbPlayer_clicked.get())
         count_map_number=int(self.nbMap_clicked.get())
         yPlacement=130
@@ -151,29 +153,34 @@ class App:
         self.map_name_option_menu_placement(count_map_number, yPlacementForMap)
 
     def map_name_option_menu_placement(self, count_map_number, yPlacementForMap):
+        """ place the map name option menu """
         for i in range(count_map_number):
             self.map_name_option_menus[i].place(x=self.width/4+160,y=yPlacementForMap,width=150,height=25)
             yPlacementForMap+=50
 
     def player_and_score_placement(self, count, yPlacement):
+        """ place the player and score entries """
         for i in range(count):
             self.players_entries[i].place(x=self.width/4,y=yPlacement,width=70,height=25)
             self.score_entries[i].place(x=self.width/4+80,y=yPlacement,width=70,height=25)
             yPlacement+=50
 
     def set_map_name_option_menus(self, count_map_number):
+        """ set the map name option menu """
         for i in range(count_map_number):
             map_name_option_menu=tk.OptionMenu(root,self.clicked_options[i],*self.map_options)
             self.map_name_option_menus.append(map_name_option_menu)
             map_name_option_menu.pack()
 
     def reset_lists(self):
+        """ reset the lists """
         #reset the lists
         self.players_entries=[]
         self.score_entries=[]
         self.map_name_option_menus=[]
 
     def widget_destroyer(self):
+        """ destroy the widgets """
         #destroy the widgets
         if len(self.players_entries)!=0:
             for i in (range(len(self.players_entries))):
@@ -181,6 +188,7 @@ class App:
                 self.score_entries[i].destroy()
 
     def widget_creator(self, count):
+            """ create the widgets """
         #create or recreate the lists and the widgets
             for i in range(count):
                 player_entry=tk.Entry(root)
@@ -191,28 +199,34 @@ class App:
                 score_entry.pack()
 
     def set_clicked_options(self, count_map_number):
+        """ set the clicked options """
         for i in range(count_map_number):
             clicked=tk.StringVar()
             clicked.set(self.map_options[0])
             self.clicked_options.append(clicked)
 class GameStatsSystem:
+
+    """ This class is used to create the game stats system """
     ID="id"
     PLAYERS="players"
     MAP_NAME="map_name"
     PODIUM="podium"
     def __init__(self,map_name,players,scores) -> None:
+        """ init """
         self.map_name=map_name
         self.players=players
         self.scores=scores
         stringified_dict=json.dumps(self.assemble())
         self.data=json.loads(stringified_dict)
     def assemble(self)->dict:
+        """ assemble the data in a dict """
         result={}
         for i in range(len(self.players)):
             result.update({self.players[i]:self.scores[i]})
         return result
     # function to return key for any value
     def get_key(self,val):
+        """ get the key for a value """
         for key, value in self.data.items():
             if val == value:
                 return key
@@ -220,6 +234,7 @@ class GameStatsSystem:
         return "key doesn't exist"
     #get the key of the max value
     def get_max_key(self,p):
+        """ get the key of the max value """
         max=0
         for key, value in self.data.items():
             if max <= value :
@@ -228,6 +243,7 @@ class GameStatsSystem:
          
         return self.get_key(max)
     def dataToJSON(self):
+        """ data to json """
         #TODO bug : the whole podium is occupied by the same person
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -260,6 +276,7 @@ class GameStatsSystem:
                 file.truncate()
                 json.dump(jsonList,file) 
 if __name__ == "__main__":
+    """ main """
     root = tk.Tk()
     app = App(root)
     root.mainloop()
